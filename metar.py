@@ -61,17 +61,12 @@ if __name__ == '__main__':
         mycol = Color(0,0,0)
         
 	print ('Press Ctrl-C to quit.')
-	while True:
-		for i in range(LED_COUNT):
-			strip.setPixelColor(i, Color(255,255,255))
-			strip.show()
-			time.sleep(2)
-			mycol = getmetar(i)
-			print(mycol)
-			strip.setPixelColor(i, mycol)
-		# strip.setPixelColor(44, mycol)
-		print('Starting Over')
-		for z in range(3):
-			print z * 10
-			time.sleep(600.0)
-
+	for i in range(LED_COUNT):
+		strip.setPixelColor(i, Color(255,255,255))
+		strip.show()
+		time.sleep(2)
+		mycol = getmetar(i)
+		print(mycol)
+		strip.setPixelColor(i, mycol)
+	print('Done!')
+exit(0)
