@@ -33,21 +33,26 @@ def getmetar(airportcode):
 	url = url + airportlist[airportcode]
 	# print (url)
 	print str(airportcode) + '. ' + airportlist[airportcode],
-	content = urlopen(url).read()
-	# print (content)
-	metars = ET.fromstring(content)
 
-	for metar in metars.iter('flight_category'):
-		flightCat = metar.text
-		print ' = ' + flightCat, 
-		if flightCat == "VFR":
-			return Color(255,0,0)
-		elif flightCat == "MVFR":
-			return Color(0,0,255)
-		elif flightCat == "IFR":
-			return Color(0,255,0)
-		elif flightCat == "LIFR":
-			return Color(0,125,125)
+	try:
+		content = urlopen(url).read()
+		# print (content)
+		metars = ET.fromstring(content)
+
+		for metar in metars.iter('flight_category'):
+			flightCat = metar.text
+			print ' = ' + flightCat, 
+			if flightCat == "VFR":
+				return Color(255,0,0)
+			elif flightCat == "MVFR":
+				return Color(0,0,255)
+			elif flightCat == "IFR":
+				return Color(0,255,0)
+			elif flightCat == "LIFR":
+				return Color(0,125,125)
+	except Exception as exc:
+		print('There was a problem: %s' % (exc))
+
 	return Color(0,0,0)
 
 
