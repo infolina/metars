@@ -13,7 +13,8 @@ import os
 from neopixel import *
 
 # LED strip configuration:
-LED_COUNT      = 45      # Number of LED pixels.
+LED_COUNT      = 104      # Number of LED pixels.
+METAR_COUNT    = 99      # Number of LED pixels.
 LED_PIN        = 18      # GPIO pin connected to the pixels (18 uses PWM!).
 #LED_PIN        = 10      # GPIO pin connected to the pixels (10 uses SPI /dev/spidev0.0).
 LED_FREQ_HZ    = 800000  # LED signal frequency in hertz (usually 800khz)
@@ -23,13 +24,20 @@ LED_INVERT     = False   # True to invert the signal (when using NPN transistor 
 LED_CHANNEL    = 0       # set to '1' for GPIOs 13, 19, 41, 45 or 53
 LED_STRIP      = ws.WS2811_STRIP_GRB   # Strip type and colour ordering
 
-airportlist = ['keho','kakh','kuza','kdcm','klkr','keqy','kclt','kjqf','kipj','khky','ksvh','kruq','kexx','kint','kgso',
-               'kbuy','kscr','ktta','khrj','kjnx','klhz','krdu','kigx','khbi','kvuj','kafp','kcqw','krcz','khff','ksop',
-               'kfbg','kfay','kctz','klbt','kmeb','kfdw','kcub','kcdn','ksms','khvs','kflo','kmao','ksut','kilm', 'kpyg']
+airportlist = ['kmia','korl','ktpa','kjax','ktlh','ksav','kchs','kags','kcae','kmyr',
+	'kilm','krdu','kgso','kclt','kgmu','kavl','ktys','katl','kbhm','khsv',
+	'kbna','klou','klex','kcvg','kstl','kind','kfwa','kgrr','kdet','kcle',
+	'kpit','kbuf','kroc','ksyr','kalb','kbtv','kbgr','kpwm','kbos','kmvy',
+	'kpvd','khfd','kbdr','kjfk','kacy','kphl','kbwi','kiad','kric','korf',
+	'kwwd','kcrw','kmem','klit','kjan','kbix','knew','kiah','kcrp','kodo',
+	'kabq','kfmn','kgjt','kden','kcys','kslc','kflg','kphx','klax','ksan',
+	'klas','krno','ksfo','kfat','kboi','ksea','kpdx','keug','kmso','kgeg',
+	'kbil','kjac','krap','kbis','kord','kmke','kosh','kmsp','kfar','kfsd',
+	'koma','kdsm','kmci','kict','ktul','kokc','kdfw','kshv','kvuj']
 
 # Get the data for the airport
 def getmetar(airportcode):
-	url = "https://aviationweather.gov/adds/dataserver_current/httpparam?datasource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=1&stationString="
+	url = "https://aviationweather.gov/adds/dataserver_current/httpparam?datasource=metars&requestType=retrieve&format=xml&mostRecent=true&hoursBeforeNow=3&stationString="
 	url = url + airportlist[airportcode]
 	# print (url)
 	print str(airportcode) + '. ' + airportlist[airportcode],
@@ -65,13 +73,38 @@ if __name__ == '__main__':
 	strip.begin()
         mycol = Color(0,0,0)
         
-	print ('Press Ctrl-C to quit.')
-	for i in range(LED_COUNT):
+	strip.setPixelColor(99, Color(255,255,255))
+	strip.setPixelColor(99,Color(255,0,0))
+	strip.show()	
+	strip.setPixelColor(100, Color(255,255,255))
+	strip.setPixelColor(100,Color(0,0,255))	
+	strip.show()
+	strip.setPixelColor(101, Color(255,255,255))
+	strip.setPixelColor(101,Color(0,255,0))	
+	strip.show()
+	strip.setPixelColor(102, Color(255,255,255))
+	strip.setPixelColor(102,Color(0,125,125))
+	strip.show()
+	
+	for i in range(METAR_COUNT):
 		strip.setPixelColor(i, Color(255,255,255))
 		strip.show()
-		time.sleep(1)
+		time.sleep(.5)
 		mycol = getmetar(i)
 		print(mycol)
 		strip.setPixelColor(i, mycol)
-	print('Done!')
+		strip.show()
+	strip.setPixelColor(99, Color(255,255,255))
+	strip.setPixelColor(99,Color(255,0,0))
+	strip.show()	
+	strip.setPixelColor(100, Color(255,255,255))
+	strip.setPixelColor(100,Color(0,0,255))	
+	strip.show()
+	strip.setPixelColor(101, Color(255,255,255))
+	strip.setPixelColor(101,Color(0,255,0))	
+	strip.show()
+	strip.setPixelColor(102, Color(255,255,255))
+	strip.setPixelColor(102,Color(0,125,125))	
+
+print('Done!')
 exit(0)
