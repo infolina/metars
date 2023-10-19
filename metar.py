@@ -37,7 +37,7 @@ airportlist = ['kmia','korl','ktpa','kjax','ktlh','ksav','kchs','kags','kcae','k
 
 # Get the data for the airport
 def getmetar(airportcode):
-	url = "https://aviationweather.gov/adds/dataserver_current/httpparam?datasource=metars&requestType=retrieve&format=xml&mostRecent=true&hoursBeforeNow=3&stationString="
+	url = "https://aviationweather.gov/cgi-bin/data/dataserver.php?requestType=retrieve&hoursBeforeNow=4&format=xml&mostRecent=true&dataSource=metars&stationString="
 	url = url + airportlist[airportcode]
 	# print (url)
 	print str(airportcode) + '. ' + airportlist[airportcode],
